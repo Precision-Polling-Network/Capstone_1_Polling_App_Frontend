@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-
-// import MovieCard from "../components/MovieCard";
+// import PollCard from "../components/PollCard";
 
 function Home(props) {
   const [polls, setPolls] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [name, setName] = useState("");
+  const [questions, setQuestions] = useState("");  
+  const [options, setOptions] = useState("");
 
   const backEnd_Connection = "https://localhost:8080";
   useEffect(() => {
@@ -29,6 +31,8 @@ function Home(props) {
 
     console.log(polls);
   }, []);
+
+
   //   if (loading){
   //     return <p style={{padding: 16}}>Loading Polls...</p>;
   //   }
