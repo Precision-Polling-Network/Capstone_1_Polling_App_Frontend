@@ -4,6 +4,7 @@ import PollCard from "../components/PollCard";
 
 function Home() {
   const [polls, setPolls] = useState([]);
+  const [options, setOptions] = useState([])
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -26,7 +27,6 @@ function Home() {
 
     getData();
   }, []);
-console.log(polls)
 
   if (loading) {
     return <div>Loading Polls...</div>;
@@ -42,10 +42,9 @@ console.log(polls)
         {polls.map((poll) => {
           return (
             <div key={poll.id}>
-              <Link to={`/polls/${poll.id}`}>
-                {<PollCard key={poll.id} Poll={poll}/>}
+              <Link to={`/poll/${poll.id}`}>
+                <PollCard key={poll.id} Poll={poll}/>
               </Link>
-              <p>{poll.description}</p>
             </div>
           );
         })}

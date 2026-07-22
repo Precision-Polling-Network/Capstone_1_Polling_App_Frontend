@@ -16,8 +16,10 @@ let params = useParams()
           throw new Error(`Failed to load Polls!`);
         }
         const data = await response.json();
-        console.log(data);
+        // console.log(data.options);
         setPoll(data);
+        console.log(data.options)
+        console.log(poll)
       } catch (err) {
         setError(err.message);
       } finally {
@@ -29,17 +31,19 @@ let params = useParams()
 
 
 async function castVote() {  
- }
+ 
+}
 // GET .polls/:id and POST /polls/:id/vote will be here
 
-console.log(poll.options)
+// console.log(poll.options)
 return (
     <div>
+        <h1>hello</h1>
         <h1>{poll.title}</h1>
         <p>{poll.description}</p>
-        <p>{poll.options.map((option) =>{
-            <p>{option}</p>
-        })}</p>
+         {/* <p>{poll.options.map((option) =>{
+            <p>{option.text}</p>
+        })}</p> */}
     </div>
 )
 
