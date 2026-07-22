@@ -4,9 +4,10 @@ function PollCard({ Poll }) {
     return (
         <div>
             <h2>{Poll.title}</h2>
-            <h3>{Poll.description}</h3>
+            {/* <p>{Poll.description}</p> */} 
         </div>
     );
 }
 
 export default PollCard;
+//the issue with putting description here is that Home.jsx would turn it into a Link

@@ -4,7 +4,6 @@ import PollCard from "../components/PollCard";
 
 function Home() {
   const [polls, setPolls] = useState([]);
-  const [options, setOptions] = useState([])
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -46,6 +45,7 @@ console.log(polls)
               <Link to={`/polls/${poll.id}`}>
                 {<PollCard key={poll.id} Poll={poll}/>}
               </Link>
+              <p>{poll.description}</p>
             </div>
           );
         })}
