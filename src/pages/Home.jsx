@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-// import PollCard from "../components/PollCard";
+import {Link} from "react-router"
+import PollCard from "../components/PollCard";
+
 
 function Home(props) {
   const [polls, setPolls] = useState([]);
@@ -13,14 +15,14 @@ function Home(props) {
   useEffect(() => {
     async function loadPollTitles() {
       try {
-        //    const response = await fetch(`${backEnd_Connection}/polls`);
-        setPolls(props.pollList);
-        //    if(!response){
-        //     setPolls(props.pollList)
-        //     // throw new Error(`Failed to load Polls!`);
-        //    }
-        //    const data = await response.json();
-        //    setPolls(data.results);
+            const response = await fetch(`${backEnd_Connection}/polls`);
+        
+            if(!response){
+             setPolls(props.pollCard)
+             throw new Error(`Failed to load Polls!`);
+           }
+            const data = await response.json();
+            setPolls(data.results);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -29,27 +31,27 @@ function Home(props) {
     }
     loadPollTitles();
 
-    console.log(polls);
+    console.log(params.polls);
   }, []);
 
 
-  //   if (loading){
-  //     return <p style={{padding: 16}}>Loading Polls...</p>;
-  //   }
+     if (loading){
+       return <p style={{padding: 16}}>Loading Polls...</p>;
+     }
 
-  //   if (error){
-  //     return <p style= {{padding: 16}}>Error: {error}</p>;
-  //   }
+     if (error){
+       return <p style= {{padding: 16}}>Error: {error}</p>;
+     }
 
-  // <PollDetails key={poll.id}></PollDetail>
+   
   return (
     <div>
-      <h1>Poll App</h1>
+      <h1 div={polls.id}></h1>
       <div>
         {polls.map((poll) => (
           <div key={poll.id}>
             {poll.title}
-            <div key={poll.id}>{poll.description}</div>
+            <div key={poll.id}>{poll.description}</div> 
           </div>
         ))}
       </div>

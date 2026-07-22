@@ -14,9 +14,7 @@ function PollCard({poll, toggleStartPoll, pollStarted}) {
         <Link to={`/polls/${poll.id}`} className="poll-card">
             <h3>{poll.name}</h3>
             <p>{poll.description}</p>
-            <button onClick={startPoll} style={{margin: 8}}>
-                {started ?  : }
-            </button>
+            <button onClick={startPoll} style={{margin: 8}}></button>
         </Link>
     )
 }
