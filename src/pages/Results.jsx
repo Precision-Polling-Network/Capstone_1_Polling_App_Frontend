@@ -11,13 +11,13 @@ const pollObj = {};
       
       const BACKEND_CONNECTION = "https://localhost:8080";  
       const response = await fetch(`${BACKEND_CONNECTION}/polls/:id`);
-      let voteCount = pollObj.optionId.  
+      console.log(response)
+      let voteCount =  pm 
     }
     voteCount();
   }, []); 
   // Response.json should return an object: Poll: {title: "", description: "", options[{text, votes}]}
-  // .map through the options, with the text annd the votes
-
+  // .map through the options, with the text and the votes
 
   return (
     <div >{
