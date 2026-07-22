@@ -5,7 +5,7 @@ import Home from './pages/Home'
 import Poll from './pages/Poll'
 // import Results from '../pages/Results'
 // import CreatePoll from '../pages/CreatePoll';
-// import NotFound from '../pages/NotFound';
+import NotFound from './pages/NotFound';
 
 function AppRoutes() {
   return (
