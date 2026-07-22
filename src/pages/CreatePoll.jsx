@@ -1,6 +1,5 @@
 async function CreatePoll(event) {
-    e
-    vent.preventDefault();
+    event.preventDefault();
     try {
       const response = await fetch(`${API_URL}/polls`, {
         method: "POST",
