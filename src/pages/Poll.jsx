@@ -1,12 +1,14 @@
 // import { PollCard } from "../components/PollCard";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 
 export default function Poll() {
   const [poll, setPoll] = useState({});
   const [selectedOption, setSelectedOption] = useState(null);
   const [isSelected, setIsSelected] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const navigate = useNavigate();
 
   const backEnd_Connection = "http://localhost:8080";
   let params = useParams();
@@ -22,7 +24,6 @@ export default function Poll() {
         const data = await response.json();
         // console.log(data.options);
         setPoll(data);
-        console.log(data.options);
       } catch (error) {
         console.error(error);
       }
@@ -38,7 +39,6 @@ export default function Poll() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!selectedOption) return "Please Select an Option!";
-    debugger;
 
     try {
       const response = await fetch(
@@ -56,14 +56,11 @@ export default function Poll() {
       if (response.ok) {
         const data = await response.json();
         console.log("Vote Successfully Saved!", data);
+        return navigate(`/poll/${poll.id}/results`);
       }
     } catch (error) {}
   };
   // GET .polls/:id and POST /polls/:id/vote will be here
-
-  console.log(poll.options);
-  console.log(selectedOption);
-  console.log(isSelected);
 
   return (
     <form onSubmit={handleSubmit}>

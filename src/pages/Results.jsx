@@ -1,35 +1,36 @@
 import { useState, useEffect } from "react";
-import {useParams} from "react-router";
+import { useParams } from "react-router";
 
+export default function Results() {
+  const [poll, setPoll] = useState(null);
+  const params = useParams();
 
-function Results() {
-const [votes, setVotes] = useState(0);
   useEffect(() => {
     async function voteCount() {
-        
-      
-      const BACKEND_CONNECTION = "https://localhost:8080";  
-      const response = await fetch(`${BACKEND_CONNECTION}/polls/:id`);
-      console.log(response); 
-      // response = { title, description, options[{}] : {text, votes}}
-      setVotes(response.json);
+      const BACKEND_CONNECTION = "http://localhost:8080";
+
+      const response = await fetch(`${BACKEND_CONNECTION}/polls/${params.id}`);
+      const data = await response.json();
+      console.log(data);
+      setPoll(data);
     }
     voteCount();
-  }, []); 
+  }, []);
   // Response.json should return an object: Poll: {title: "", description: "", options[{text, votes}]}
   // .map through the options, with the text and the votes
+  // If there is no poll yet render loading
+  if (!poll) return <div>Loading...</div>;
 
   return (
-    <div >{
-    votes.map((poll) => {
-        <div key={poll.id}>
-          {poll.votes}
+    <div>
+      <h1>{poll.title}</h1>
+      <p>{poll.description}</p>
+
+      {poll.options.map((option) => (
+        <div key={option.id}>
+          {option.text}: {option.votes.length} votes!
         </div>
-    })     }   
-      {/* TODO (Part 3): render the quote's text and author */}
-      {/* TODO (Part 3): a link back to the home page */}
+      ))}
     </div>
   );
 }
-
-export default Results;
