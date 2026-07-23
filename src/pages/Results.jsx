@@ -29,7 +29,9 @@ export default function Results() {
   );
 
   return (
-    <div>
+    <div style={
+      {backgroundColor: "blue",}
+    }>
       <h1>{poll.title}</h1>
       <p>{poll.description}</p>
 
@@ -37,23 +39,26 @@ export default function Results() {
         const percentage = (option.votes.length / maxVotes) * 100;
         console.log(percentage);
         return (
-          <div key={option.id} classNAme="voteTally">
-            {option.text}: {option.votes.length} votes!
-            <div
+          <div style={{
+            justifyItems: "center",
+          }} key={option.id} classNAme="voteTally">
+            {option.text}: <div
               style={{
                 backgroundColor: "#dcdcdc",
-                width: "100%",
+                justifyItems: "left",
+                width: "50%",
               }}
             >
               <div
                 style={{
                   backgroundColor: "green",
-                 
+                  justifyContent: "left",
+                  color: "white",
                   width: `${percentage}%`,
                 }}
               >
                 
-                  .</div>
+                  {option.votes.length} of {maxVotes} votes!</div>
             </div>
           </div>
         );

@@ -63,8 +63,8 @@ export default function Poll() {
   // GET .polls/:id and POST /polls/:id/vote will be here
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form  onSubmit={handleSubmit}>
+      <div >
         <h1>{poll.title}</h1>
         <p>{poll.description}</p>
         <div>
