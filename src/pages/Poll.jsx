@@ -34,12 +34,12 @@ export default function Poll() {
   const handleSelected = async (optionId) => {
     setSelectedOption(optionId);
     setIsSelected(true);
+    if (selectedOption) {
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!selectedOption) return "Please Select an Option!";
-
     try {
       const response = await fetch(
         `${backEnd_Connection}/polls/${params.id}/vote`,
@@ -74,6 +74,10 @@ export default function Poll() {
                 key={option.id}
                 type="button"
                 onClick={() => handleSelected(option.id)}
+                style={{
+                  backgroundColor:
+                    selectedOption === option.id ? "#dcdcdc" : "",
+                }}
               >
                 <p>{option.text}</p>
               </button>

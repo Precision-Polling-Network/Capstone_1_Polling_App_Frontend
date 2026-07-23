@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import "./Results.css"
 
 export default function Results() {
   const [poll, setPoll] = useState(null);
@@ -21,16 +22,42 @@ export default function Results() {
   // If there is no poll yet render loading
   if (!poll) return <div>Loading...</div>;
 
+  // const maxVotes = Math.max(...poll.options.map(o => o.votes));
+  const maxVotes = poll.options.reduce(
+    (sum, option) => option.votes.length + sum,
+    0,
+  );
+
   return (
     <div>
       <h1>{poll.title}</h1>
       <p>{poll.description}</p>
 
-      {poll.options.map((option) => (
-        <div key={option.id}>
-          {option.text}: {option.votes.length} votes!
-        </div>
-      ))}
+      {poll.options.map((option) => {
+        const percentage = (option.votes.length / maxVotes) * 100;
+        console.log(percentage);
+        return (
+          <div key={option.id} classNAme="voteTally">
+            {option.text}: {option.votes.length} votes!
+            <div
+              style={{
+                backgroundColor: "#dcdcdc",
+                width: "100%",
+              }}
+            >
+              <div
+                style={{
+                  backgroundColor: "green",
+                 
+                  width: `${percentage}%`,
+                }}
+              >
+                
+                  .</div>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
