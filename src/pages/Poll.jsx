@@ -38,7 +38,7 @@ export default function Poll() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!selectedOption) return "Please Select an Option!";
-    debugger
+    debugger;
 
     try {
       const response = await fetch(
@@ -61,10 +61,9 @@ export default function Poll() {
   };
   // GET .polls/:id and POST /polls/:id/vote will be here
 
-  console.log(poll.options)
+  console.log(poll.options);
   console.log(selectedOption);
   console.log(isSelected);
-
 
   return (
     <form onSubmit={handleSubmit}>
@@ -72,8 +71,13 @@ export default function Poll() {
         <h1>{poll.title}</h1>
         <p>{poll.description}</p>
         <div>
-          {poll.options && poll.options.map((option) => (
-              <button key={option.id} type="button" onClick={() => handleSelected(option.id)}>
+          {poll.options &&
+            poll.options.map((option) => (
+              <button
+                key={option.id}
+                type="button"
+                onClick={() => handleSelected(option.id)}
+              >
                 <p>{option.text}</p>
               </button>
             ))}
