@@ -27,7 +27,6 @@ function Home() {
 
     getData();
   }, []);
-console.log(polls)
 
   if (loading) {
     return <div>Loading Polls...</div>;
@@ -43,8 +42,8 @@ console.log(polls)
         {polls.map((poll) => {
           return (
             <div key={poll.id}>
-              <Link to={`/polls/${poll.id}`}>
-                {<PollCard key={poll.id} Poll={poll}/>}
+              <Link to={`/poll/${poll.id}`}>
+                <PollCard key={poll.id} Poll={poll}/>
               </Link>
             </div>
           );
