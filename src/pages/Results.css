@@ -1,3 +1,50 @@
-body{
-    background-color: "blue";
+
+.full-page {
+    min-height: 100vh;
+    width: 100vw;        /* FULL viewport width */
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+/* Make sure rows don’t block gradient */
+.results-page {
+    display: grid;
+    justify-items: center;
+    background: transparent;
+    margin-bottom: 20px;
+    width: 100%;
+    overflow: hidden;
+    overflow-x: hidden;
+}
+
+nav {
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.results-mode nav {
+  background: linear-gradient(270deg, #ff6b6b, #4dabf7, #51cf66);
+  background-size: 600% 600%;
+  animation: gradientShift 12s ease infinite;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+/* Apply gradient ONLY to the background, no padding */
+.results-mode .full-page {
+  background: linear-gradient(270deg, #ff6b6b, #4dabf7, #51cf66);
+  background-size: 600% 600%;
+  animation: gradientShift 12s ease infinite;
+  border-radius: 6px;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
