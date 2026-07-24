@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+function Login() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const API_URL = "http://localhost:8080";
   const navigate = useNavigate();
 
-  async function handleCreateUser(){
+  async function handleCreateUser(e){
+    e.preventDefault();
     if(!userName || !email || !password){                                // Check if any fields are not there
         console.log("All fields are necessary to create a new user!!!"); // If this is true log message
         return;                                                          // and return to the            
@@ -21,16 +23,16 @@ export default function Login() {
             body: JSON.stringify({userName, email, password}),
         });
         const data = await response.json();
-
+        console.log("Sending:", { userName, email, password });
         if(!response.ok){
-            console.log("There was a Signup error!!!");
+            setMessage(data);
             return;
         }
 
-        console.log("User created successfully!!!", data);
-        console.log("Now use the same information to log in with!!!");
+        setMessage("User created successfully!!!", data);
+        setMessage("Now use the ssubmit button log in!!!");
     }catch(error){
-        console.log("Network Error", error);
+        setMessage("Network Error", error);
     }
   
 
@@ -49,14 +51,14 @@ export default function Login() {
       const data = await response.json();
 
       if (!response.ok) {
-        console.log(data);
+        setMessage(data);
         return;
       }
 
       navigate("/home");
 
     } catch (error) {
-      console.log(error);
+      setMessage(error);
     }
   }
 
@@ -86,10 +88,13 @@ export default function Login() {
     onChange={(e) => setPassword(e.target.value)}
   />
 
-  <button onClick={handleCreateUser}>Create New User</button>
+  <button onClick={(e) => handleCreateUser(e)}>Create New User</button>
+  {message && <p>{message}</p>}
 
   <button onClick={handleLogin}>Submit</button>
 </div>
 
   );
 }
+
+export default Login;
