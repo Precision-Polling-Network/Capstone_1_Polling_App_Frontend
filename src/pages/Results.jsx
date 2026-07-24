@@ -19,8 +19,18 @@ export default function Results() {
   }, []);
   // Response.json should return an object: Poll: {title: "", description: "", options[{text, votes}]}
   // .map through the options, with the text and the votes
+  
+  // Assign a class to the body of the results page only when the page is open and removes the class when the page is closed.  
+  useEffect(() => {
+    document.body.classList.add("results-mode");
+    return () => {
+      document.body.classList.remove("results-mode");
+    };
+  }, []);
+  
   // If there is no poll yet render loading
   if (!poll) return <div>Loading...</div>;
+
 
   // const maxVotes = Math.max(...poll.options.map(o => o.votes));
   const maxVotes = poll.options.reduce(
@@ -29,9 +39,7 @@ export default function Results() {
   );
 
   return (
-    <div style={
-      {backgroundColor: "blue",}
-    }>
+    <div className= "full-page">
       <h1>{poll.title}</h1>
       <p>{poll.description}</p>
 
@@ -39,22 +47,20 @@ export default function Results() {
         const percentage = (option.votes.length / maxVotes) * 100;
         console.log(percentage);
         return (
-          <div style={{
-            justifyItems: "center",
-          }} key={option.id} classNAme="voteTally">
+          <div key={option.id} className="results-page">
             {option.text}: <div
               style={{
                 backgroundColor: "#dcdcdc",
-                justifyItems: "left",
                 width: "50%",
+                overflow: "hidden",
               }}
             >
               <div
                 style={{
                   backgroundColor: "green",
-                  justifyContent: "left",
                   color: "white",
                   width: `${percentage}%`,
+                  maxWidth: "100%",
                 }}
               >
                 
