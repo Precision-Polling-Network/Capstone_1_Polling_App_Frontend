@@ -9,71 +9,87 @@ export default function Login() {
   const API_URL = "http://localhost:8080";
   const navigate = useNavigate();
 
-  async function handleSubmit(e) {
+  async function handleCreateUser(){
+    if(!userName || !email || !password){                                // Check if any fields are not there
+        console.log("All fields are necessary to create a new user!!!"); // If this is true log message
+        return;                                                          // and return to the            
+    }
+    try {
+        const response = await fetch(`${API_URL}/auth/signup`, {
+            method: "POST",
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({userName, email, password}),
+        });
+        const data = await response.json();
+
+        if(!response.ok){
+            console.log("There was a Signup error!!!");
+            return;
+        }
+
+        console.log("User created successfully!!!", data);
+        console.log("Now use the same information to log in with!!!");
+    }catch(error){
+        console.log("Network Error", error);
+    }
+  
+
+}
+
+  async function handleLogin(e) {
     e.preventDefault();
 
-    if (!userName || !email || !password) {
-      console.log("Something is empty!!!");
-      return;
-    }
-
     try {
-      const response = await fetch(`${API_URL}/login`, {
+      const response = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userName,
-          email,
-          password,
-        }),
+        body: JSON.stringify({ email, password })
       });
 
       const data = await response.json();
-      console.log("Login response:", data);
 
-      // navigate("/dashboard");  // optional redirect
+      if (!response.ok) {
+        console.log(data);
+        return;
+      }
+
+      navigate("/home");
+
     } catch (error) {
-      console.log("Login error:", error);
+      console.log(error);
     }
   }
 
   return (
     <div>
-      <h1>Welcome To the Precision Polling Network</h1>
-      <h2>Where we handle all of your polling needs</h2>
+  <h1>Welcome To the Precision Polling Network</h1>
+  <h2>Where we handle all of your polling needs</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="userName"
-          placeholder="Add Username"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-        />
-        <br />
+  <input
+    type="text"
+    placeholder="Add Username"
+    value={userName}
+    onChange={(e) => setUserName(e.target.value)}
+  />
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Add Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br />
+  <input
+    type="email"
+    placeholder="Add Email"
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+  />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Create Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
+  <input
+    type="password"
+    placeholder="Create Password"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+  />
 
-        <button type="submit" disabled={!userName || !email || !password}>
-          Submit
-        </button>
-      </form>
-    </div>
+  <button onClick={handleCreateUser}>Create New User</button>
+
+  <button onClick={handleLogin}>Submit</button>
+</div>
+
   );
 }
