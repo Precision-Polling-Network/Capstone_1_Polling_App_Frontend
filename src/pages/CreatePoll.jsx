@@ -5,104 +5,100 @@ import { useNavigate } from "react-router-dom";
 export default function CreatePoll() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [options, setOptions] = useState([{text: "", id: 1}]);
+  const [options, setOptions] = useState([{ text: "" }]);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
   const API_URL = "http://localhost:8080";
-  // useEffect(async ()=> {
-  //  try {
-  //     const response = await fetch(`${API_URL}/polls`, {
-  //       method: "POST",
-  //       headers: { "content-type": "application/json" },
-  //       body: JSON.stringify({ title, description, options }),
-  //     });
-  //     console.log(response)
-  //     const newPoll = await response.json();
-  //     setPoll([...poll, newPoll]);
-  //   }
-  //     catch (error) {
-  //     console.log(error);
-  //   }
-  //     finally {
-  //     setTitle("");
-  //     setDescription("");
-  //     setOptions("");
-  //   }
-  // },[])
+
   async function handleSubmit(event) {
     console.log(event);
     event.preventDefault();
     console.log("Submit form", title, description, options);
     try {
-      if(title,description,options){
-      const response = await fetch(`${API_URL}/polls`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ title, description, options: [{text:options}] }),
-      });
+      if (title && description && options) {
+        const response = await fetch(`${API_URL}/polls`, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            title,
+            description,
+            options,
+          }),
+        });
 
-      const poll = await response.json();
-      console.log(response);
-      console.log(poll);
-    }
-    else{
-      console.log("something is empty!!!")
-    }
-      // return navigate(`/poll/${poll.id}`);
+        const poll = await response.json();
+        console.log(response);
+        console.log(poll);
+        return navigate(`/poll/${poll.id}`);
+      } else {
+        console.log("something is empty!!!");
+      }
     } catch (error) {
       console.log(error);
     } finally {
       setTitle("");
       setDescription("");
-      setOptions([{text:""}]);
+      setOptions([""]);
     }
   }
 
-  function addOption(e){
-    e.preventDefault()
-    setOptions([...options, {text:"", id: options[options.length-1].id+1}])
-    console.log(options)
+  function changeOption(e, index) {
+    const newOptions = [...options];
+    newOptions[index].text = e.target.value;
+
+    setOptions(newOptions);
   }
 
-  function updateOptionText(optionId, text){
-    let found = options.findIndex((option) => option.id === optionId )
-    console.log(found)
+  function addOptionField() {
+    setOptions([...options, { text: "" }]);
   }
+
   return (
     <div>
       <h1>Create a Poll</h1>
-      <form >
+      <form>
         <input
-          type="Title"
+          type="text"
+          name="title"
           placeholder="Add title"
           value={title}
           onChange={(event) => setTitle(event.target.value)}
         />
         <br />
         <input
-          type="Description"
+          type="text"
+          name="description"
           placeholder="Add description"
           value={description}
           onChange={(event) => setDescription(event.target.value)}
         />
         <br />
-        {options.map((option) => 
-        <div key={option.id}>
-          <input
-            type="Option"
-            placeholder="Create option"
-            value={option.text}
-            onChange={(event) => updateOptionText(option.id, event.target.value)}
-          />
-          <br />
-          </ div>
-        )}
+        {options.map((option, idx) => (
+          <div key={idx}>
+            <input
+              type="text"
+              placeholder="Create option"
+              value={option.text}
+              name={`option-${idx}`}
+              onChange={(e) => changeOption(e, idx)}
+            />
+            <br />
+          </div>
+        ))}
         <br />
-        <button onClick={addOption}>Add option</button>
+        <div>
+          <input type="button" onClick={addOptionField} value="add option" />
+        </div>
 
-        <button type="submit" onClick={handleSubmit}>Submit</button>
+        <button
+          type="submit"
+          onClick={handleSubmit}
+          disabled={!title || !description || !options}
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
