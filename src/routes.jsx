@@ -14,11 +14,11 @@ function AppRoutes() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Navigate to="/Login" />} />
-        <Route path="/Login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/poll/:id" element={<Poll />} />
         <Route path="/poll/:id/results" element={<Results />} />
-        <Route path="/CreatePoll" element={<CreatePoll />} />
+        <Route path="/create" element={<CreatePoll />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
