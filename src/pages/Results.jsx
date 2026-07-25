@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import "./Results.css"
+import "../styles/Results.css"
 
 export default function Results() {
   const [poll, setPoll] = useState(null);
