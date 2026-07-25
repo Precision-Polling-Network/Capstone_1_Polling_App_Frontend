@@ -64,7 +64,9 @@ function Login() {
 
   return (
     <div>
-  <h1>Welcome To the Precision Polling Network</h1>
+  <h1 style={
+    {"color": "#ee7f09"}
+  }>Welcome To POLLar Opposites</h1>
   <h2>Where we handle all of your polling needs</h2>
 
   <input
