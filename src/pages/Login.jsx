@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login({setIsLoggedIn}) {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -54,7 +54,7 @@ function Login() {
         setMessage(data);
         return;
       }
-
+      setIsLoggedIn(true); //after user is logged in change isLoggedIn to true 
       navigate("/home");
 
     } catch (error) {
