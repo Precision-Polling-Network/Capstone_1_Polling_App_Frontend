@@ -54,7 +54,7 @@ console.log("DATA FROM BACKEND:", data);
     <div>
       {polls.map((poll) => (
         <div key={poll.id}>
-          <Link to={`/poll/${poll.id}`}>
+          <Link to={`/polls/${poll.id}`}>
             <PollCard Poll={poll} />
           </Link>
         </div>

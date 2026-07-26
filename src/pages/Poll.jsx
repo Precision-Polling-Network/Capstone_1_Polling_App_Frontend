@@ -51,10 +51,11 @@ export default function Poll() {
         `${backEnd_Connection}/polls/${params.id}/vote`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json",
+                      "x-login-token": localStorage.getItem("loginToken")
+           },
           body: JSON.stringify({
-            pollId: poll.id,
-            selectedOption: selectedOption,
+           selectedOption: Number(selectedOption),
           }),
         },
       );
@@ -62,14 +63,14 @@ export default function Poll() {
       if (response.ok) {
         const data = await response.json();
         console.log("Vote Successfully Saved!", data);
-        return navigate(`/polls/${poll.id}/results`);
+        navigate(`/polls/${poll.id}/results`);
       }
     } catch (error) {}
   };
   // GET .polls/:id and POST /polls/:id/vote will be here
 
   return (
-    <form  onSubmit={handleSubmit}>
+    <form  onSubmit={(e) => handleSubmit(e)}>
       <div >
         <h1>{poll.title}</h1>
         <p>{poll.description}</p>

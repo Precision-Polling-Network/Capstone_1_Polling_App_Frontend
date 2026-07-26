@@ -31,18 +31,18 @@ function AppRoutes() {
             </ProtectedRoute>
           }
         />
-
         <Route
-          path="/poll/:id"
+          path="/polls/:id"
           element={
+            
             <ProtectedRoute>
               <><Poll /></>
-            </ProtectedRoute>
-          }
-        />
+              </ProtectedRoute>
+            }
+            />
 
         <Route
-          path="/poll/:id/results"
+          path="/polls/:id/results"
           element={
             <ProtectedRoute>
               <><Results /></>
