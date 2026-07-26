@@ -12,11 +12,17 @@ export default function Poll() {
 
   const backEnd_Connection = "http://localhost:8080";
   let params = useParams();
+  const token = localStorage.getItem("loginToken");
   useEffect(() => {
     const getData = async () => {
       try {
         const response = await fetch(
-          `${backEnd_Connection}/polls/${params.id}`,
+          `${backEnd_Connection}/polls/${params.id}`,{
+            headers: {
+              "Content-Type": "application/json",
+              "x-login-token": token,
+            }
+          }
         );
         if (!response.ok) {
           throw new Error(`Failed to load Polls!`);
@@ -56,7 +62,7 @@ export default function Poll() {
       if (response.ok) {
         const data = await response.json();
         console.log("Vote Successfully Saved!", data);
-        return navigate(`/poll/${poll.id}/results`);
+        return navigate(`/polls/${poll.id}/results`);
       }
     } catch (error) {}
   };
