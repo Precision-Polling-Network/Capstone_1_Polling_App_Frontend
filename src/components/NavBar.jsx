@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import '../styles/NavBar.css';
 
-function NavBar() {
+
+function NavBar({isLoggedIn, setIsLoggedIn}) { // catching the promps.
   const [isOpen, setIsOpen] = useState(false);
 
   function toggleMenu() {
@@ -44,7 +45,7 @@ return (
               Home
             </NavLink>
           </li>
-          <li className="nav-item">
+          {isLoggedIn && (<li className="nav-item"> 
             <NavLink 
               to="/create" 
               className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
@@ -53,7 +54,8 @@ return (
               Create Poll
             </NavLink>
           </li>
-          <li className="nav-item">
+          )}
+          { isLoggedIn && <li className="nav-item">
             <NavLink 
               to="/share" 
               className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
@@ -61,7 +63,7 @@ return (
             >
               Share
             </NavLink>
-          </li>
+          </li>}
           <li className="nav-item">
             <NavLink 
               to="/login" 
