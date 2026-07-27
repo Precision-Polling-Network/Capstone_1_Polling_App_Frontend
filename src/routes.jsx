@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Poll from "./pages/Poll";
 import Results from "./pages/Results";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function AppRoutes() {
   return (
@@ -16,9 +17,9 @@ function AppRoutes() {
         <Route path="/" element={<Navigate to="/Login" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/poll/:id" element={<Poll />} />
-        <Route path="/poll/:id/results" element={<Results />} />
-        <Route path="/create" element={<CreatePoll />} />
+        <Route path="/polls/:id" element={<Poll />} />
+        <Route path="/polls/:id/results" element={<Results />} />
+        <Route path="/create" element={<ProtectedRoute><CreatePoll /></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

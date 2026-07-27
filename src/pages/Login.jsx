@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Login({setIsLoggedIn}) {
+function Login() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loginInProgress, setLoginInProgress] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const API_URL = "http://localhost:8080";
   const navigate = useNavigate();
@@ -20,9 +21,11 @@ function Login({setIsLoggedIn}) {
     try {
         const response = await fetch(`${API_URL}/auth/signup`, {
             method: "POST",
-            headers: {"Content-type": "application/json"},
+            headers: {"Content-type": "application/json",
+            },
             body: JSON.stringify({userName, email, password}),
         });
+        
         const data = await response.json();
         if(!response.ok){
             setMessage(data);
@@ -30,7 +33,7 @@ function Login({setIsLoggedIn}) {
         }
 
         setMessage("User created successfully!!!", data);
-        setMessage("Now use the ssubmit button log in!!!");
+        setMessage("Now use the submit button log in!!!");
     }catch(error){
         setMessage("Network Error", error);
     }
@@ -39,32 +42,29 @@ function Login({setIsLoggedIn}) {
 }
 
  const handleLogin = async (e) => {
-  e.preventDefault?.();
+  e.preventDefault();
 
-  // ⭐ Prevent Strict Mode double-call
   if (loginInProgress) return;
   setLoginInProgress(true);
 
   try {
     const response = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json",
+    },
       body: JSON.stringify({ email, password })
     });
 
-<<<<<<< HEAD
     const data = await response.json();
 
-    // ⭐ Save token
     localStorage.setItem("loginToken", data.loginToken);
-=======
-      if (!response.ok) {
+
+    if (!response.ok) {
         setMessage(data);
         return;
       }
       setIsLoggedIn(true); //after user is logged in change isLoggedIn to true 
       navigate("/home");
->>>>>>> 035502eedeefedeeb1b6c5bbdac367a9300b6c68
 
     setMessage("Login successful!");
     navigate("/home");
