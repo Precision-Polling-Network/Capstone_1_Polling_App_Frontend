@@ -7,9 +7,10 @@
 
 /* Navbar */
 .navbar {
+  padding: 60px;
   width: 100%;
   height: 72px;
-  background: #ffffff;
+  background: #D9DADF;
   border-bottom: 1px solid #e5e7eb;
   position: sticky;
   top: 0;
@@ -21,7 +22,6 @@
   height: 100%;
   margin: 0 auto;
   padding: 0 2rem;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,12 +29,15 @@
 
 /* Logo */
 
-.nav-logo {
+.nav-logo{
   text-decoration: none;
-  font-size: 1.7rem;
+  font-size: 3rem;
   font-weight: 700;
   color: #ee7f09;
   letter-spacing: 0.5px;
+}
+.nav-logo:hover {
+  transform: scale(1.1)
 }
 
 /* Navigation */
@@ -52,8 +55,9 @@
 
 .nav-link {
   text-decoration: none;
-  color: #374151;
-  font-weight: 500;
+  color: #2563eb;
+  font-weight: 800;
+  font-size: 1.5rem;
   transition: 0.2s ease;
 }
 
@@ -65,7 +69,8 @@
 
 .nav-link.active {
   color: #2563eb;
-  font-weight: 600;
+  font-weight: 800;
+  font-size: 1.5rem;
 }
 
 /* Login Button */
@@ -75,6 +80,7 @@
   color: white !important;
   padding: 0.65rem 1.2rem;
   border-radius: 8px;
+  font-size: 1rem;
 }
 
 .nav-cta:hover {
@@ -118,6 +124,7 @@
     padding: 2rem 0;
     transition: 0.3s ease;
     border-bottom: 1px solid #e5e7eb;
+    
   }
 
   .nav-menu.active {

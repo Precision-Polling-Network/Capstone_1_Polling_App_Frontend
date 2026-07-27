@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import PollCard from "../components/PollCard";
 
+
 function Home() {
   const [polls, setPolls] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -52,13 +53,18 @@ console.log("DATA FROM BACKEND:", data);
 
   return (
     <div>
-      {polls.map((poll) => (
-        <div key={poll.id}>
-          <Link to={`/polls/${poll.id}`}>
-            <PollCard Poll={poll} />
-          </Link>
-        </div>
-      ))}
+      {/* <h1>{polls.title}</h1> */}
+      <div class = "poll-grid">
+        {polls.map((poll) => {
+          return (
+            <div key={poll.id}>
+              <Link to={`/poll/${poll.id}`}>
+                <PollCard key={poll.id} Poll={poll}/>
+              </Link>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

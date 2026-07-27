@@ -12,10 +12,13 @@ import ProtectedRoute from "./components/ProtectedRoute";
 function AppRoutes() {
   return (
     <>
-      <NavBar />
+      <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/> 
+      {/* // set up the states and use it in the routes. */}
       <Routes>
         <Route path="/" element={<Navigate to="/Login" />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>} /> 
+        {/* // pass promp in the route of the login path. */}
+        {/* // then pass to the NavBar and login functions. */}
         <Route path="/home" element={<Home />} />
         <Route path="/polls/:id" element={<Poll />} />
         <Route path="/polls/:id/results" element={<Results />} />
