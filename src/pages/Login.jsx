@@ -1,5 +1,7 @@
+import "../styles/NavBar.css"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 
 function Login({setIsLoggedIn}) {
   const [userName, setUserName] = useState("");
@@ -63,7 +65,7 @@ function Login({setIsLoggedIn}) {
   }
 
   return (
-    <div>
+    <div class = "login_block">
   <h1 style={
     {"color": "#ee7f09"}
   }>Welcome To POLLar Opposites</h1>
