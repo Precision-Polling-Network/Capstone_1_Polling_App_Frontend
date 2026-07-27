@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router";
 import { Navigate } from "react-router-dom";
-import { useState } from 'react'
 import NavBar from "./components/NavBar";
 import CreatePoll from "./pages/CreatePoll";
 import Login from "./pages/Login";
@@ -8,11 +7,9 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Poll from "./pages/Poll";
 import Results from "./pages/Results";
-
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function AppRoutes() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);//usestate for the login. to check
-                                                      // if the user login or not.
   return (
     <>
       <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/> 
@@ -23,9 +20,9 @@ function AppRoutes() {
         {/* // pass promp in the route of the login path. */}
         {/* // then pass to the NavBar and login functions. */}
         <Route path="/home" element={<Home />} />
-        <Route path="/poll/:id" element={<Poll />} />
-        <Route path="/poll/:id/results" element={<Results />} />
-        <Route path="/create" element={<CreatePoll />} />
+        <Route path="/polls/:id" element={<Poll />} />
+        <Route path="/polls/:id/results" element={<Results />} />
+        <Route path="/create" element={<ProtectedRoute><CreatePoll /></ProtectedRoute>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

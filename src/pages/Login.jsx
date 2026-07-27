@@ -9,6 +9,7 @@ function Login({setIsLoggedIn}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [loginInProgress, setLoginInProgress] = useState(false);
 
   const API_URL = "http://localhost:8080";
   const navigate = useNavigate();
@@ -26,7 +27,6 @@ function Login({setIsLoggedIn}) {
             body: JSON.stringify({userName, email, password}),
         });
         const data = await response.json();
-        console.log("Sending:", { userName, email, password });
         if(!response.ok){
             setMessage(data);
             return;
@@ -41,18 +41,24 @@ function Login({setIsLoggedIn}) {
 
 }
 
-  async function handleLogin(e) {
-    e.preventDefault();
+ const handleLogin = async (e) => {
+  e.preventDefault?.();
 
-    try {
-      const response = await fetch(`${API_URL}/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-      });
+  // ⭐ Prevent Strict Mode double-call
+  if (loginInProgress) return;
+  setLoginInProgress(true);
 
-      const data = await response.json();
+  try {
+    const response = await fetch(`${API_URL}/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
 
+    const data = await response.json();
+
+    // ⭐ Save token
+    localStorage.setItem("loginToken", data.loginToken);
       if (!response.ok) {
         setMessage(data);
         return;
@@ -60,10 +66,17 @@ function Login({setIsLoggedIn}) {
       setIsLoggedIn(true); //after user is logged in change isLoggedIn to true 
       navigate("/home");
 
-    } catch (error) {
-      setMessage(error);
-    }
+    setMessage("Login successful!");
+    navigate("/home");
+    } catch (err) {
+    console.error(err);
+    setMessage("Login failed");
   }
+
+  // ⭐ Allow future logins
+  setLoginInProgress(false);
+};
+
 
   return (
     <div class = "login_block">
@@ -95,7 +108,7 @@ function Login({setIsLoggedIn}) {
   <button onClick={(e) => handleCreateUser(e)}>Create New User</button>
   {message && <p>{message}</p>}
 
-  <button onClick={handleLogin}>Submit</button>
+  <button onClick={(e) => handleLogin(e)}>Submit</button>
 </div>
 
   );

@@ -12,11 +12,17 @@ export default function Poll() {
 
   const backEnd_Connection = "http://localhost:8080";
   let params = useParams();
+  const token = localStorage.getItem("loginToken");
   useEffect(() => {
     const getData = async () => {
       try {
         const response = await fetch(
-          `${backEnd_Connection}/polls/${params.id}`,
+          `${backEnd_Connection}/polls/${params.id}`,{
+            headers: {
+              "Content-Type": "application/json",
+              "x-login-token": token,
+            }
+          }
         );
         if (!response.ok) {
           throw new Error(`Failed to load Polls!`);
@@ -45,10 +51,11 @@ export default function Poll() {
         `${backEnd_Connection}/polls/${params.id}/vote`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json",
+                      "x-login-token": localStorage.getItem("loginToken")
+           },
           body: JSON.stringify({
-            pollId: poll.id,
-            selectedOption: selectedOption,
+           selectedOption: Number(selectedOption),
           }),
         },
       );
@@ -56,14 +63,14 @@ export default function Poll() {
       if (response.ok) {
         const data = await response.json();
         console.log("Vote Successfully Saved!", data);
-        return navigate(`/poll/${poll.id}/results`);
+        navigate(`/polls/${poll.id}/results`);
       }
     } catch (error) {}
   };
   // GET .polls/:id and POST /polls/:id/vote will be here
 
   return (
-    <form  onSubmit={handleSubmit}>
+    <form  onSubmit={(e) => handleSubmit(e)}>
       <div >
         <h1>{poll.title}</h1>
         <p>{poll.description}</p>

@@ -10,7 +10,13 @@ export default function Results() {
     async function voteCount() {
       const BACKEND_CONNECTION = "http://localhost:8080";
 
-      const response = await fetch(`${BACKEND_CONNECTION}/polls/${params.id}`);
+      const response = await fetch(`${BACKEND_CONNECTION}/polls/${params.id}`,{
+        headers: {
+          "Content-Type": "application/json",
+          "x-login-token": localStorage.getItem("loginToken")
+        }
+      }
+      );
       const data = await response.json();
       console.log(data);
       setPoll(data);
@@ -33,10 +39,7 @@ export default function Results() {
 
 
   // const maxVotes = Math.max(...poll.options.map(o => o.votes));
-  const maxVotes = poll.options.reduce(
-    (sum, option) => option.votes.length + sum,
-    0,
-  );
+  const maxVotes = poll.options.reduce((sum, option) => option.votes.length + sum,0,);
 
   return (
     <div className= "full-page">
