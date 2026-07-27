@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import PollCard from "../components/PollCard";
 
+
 function Home() {
   const [polls, setPolls] = useState([]);
   const [options, setOptions] = useState([])
@@ -38,7 +39,7 @@ function Home() {
   return (
     <div>
       {/* <h1>{polls.title}</h1> */}
-      <div>
+      <div class = "poll-grid">
         {polls.map((poll) => {
           return (
             <div key={poll.id}>
