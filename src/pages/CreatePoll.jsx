@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import PollCard from "../components/PollCard";
 import { useNavigate } from "react-router-dom";
+import "../styles/CreatePoll.css"
 
 export default function CreatePoll() {
   const [title, setTitle] = useState("");
@@ -88,8 +89,8 @@ export default function CreatePoll() {
           </div>
         ))}
         <br />
-        <div>
-          <input type="button" onClick={addOptionField} value="add option" />
+        <div class = "addButton_box">
+          <input class = "addButton" type="button" onClick={addOptionField} value="add option" />
         </div>
 
         <button

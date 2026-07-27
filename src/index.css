@@ -74,9 +74,11 @@ h2 {
 }
 
 h1 {
+  padding: 2.5rem;
   font-size: 56px;
   letter-spacing: -1.68px;
   margin: 32px 0;
+  color:#e3bb9c;
   @media (max-width: 1024px) {
     font-size: 36px;
     margin: 20px 0;
